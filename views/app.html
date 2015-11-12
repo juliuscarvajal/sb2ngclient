@@ -7,29 +7,29 @@
     <input class="prompt" type="text" placeholder="Search" ng-model="searchText">
   </div>
 </div>
-<table class="ui very basic celled striped table">
+<table class="ui fluid very basic celled table">
   <thead>
     <th>ID</th>
     <th>Name</th>
     <th>Location</th>
   </thead>
   <tbody>
-    <tr ng-repeat="location in Locations | filter:searchText | limitTo:displayLimit">
+    <tr id="tr-{{location.id}}" ng-repeat="location in Locations | filter:searchText | limitTo:displayLimit">
       <td>{{location.id}}</td>
       <td>
         <div class="ui fluid input">
-          <input type="edit" id="name" ng-model="location.name" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'name', location, '{{location}}')" />
+          <input type="edit" id="name" ng-model="location.name" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'name', location, '{{location}}')" ng-focus="editing('Location', 'name', location)" ng-blur="notEditing('Location', 'name', location)"/>
         </div>
       </td>
       <td>
         <div class="ui fluid input">
-          <input type="edit" id="location" ng-model="location.location" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'location', location, '{{location}}')" />
+          <input type="edit" id="location" ng-model="location.location" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'location', location, '{{location}}')" ng-focus="editing('Location', 'location', location)" ng-blur="notEditing('Location', 'location', location)"/>
         </div>
       </td>
     </tr>
   </tbody>
 </table>
-<button class="ui primary button" ng-click="prev('Location')" ng-disabled="totalDisplayed === 0">Previous</button>
+<button class="ui primary button" ng-click="prev('Location')" ng-disabled="!hasPrev('Location')">Previous</button>
 <button class="ui primary button" ng-click="next('Location')">Next</button>
 
 <h3>Channels</h3>
@@ -50,6 +50,6 @@
     </tr>
   </tbody>
 </table>
-<button class="ui primary button" ng-click="prev('Channel')" ng-disabled="totalDisplayed === 0">Previous</button>
+<button class="ui primary button" ng-click="prev('Channel')" ng-disabled="!hasPrev('Channel')">Previous</button>
 <button class="ui primary button" ng-click="next('Channel')">Next</button>
 
