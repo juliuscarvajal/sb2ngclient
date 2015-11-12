@@ -1,0 +1,55 @@
+<h4>Connection status: {{online}}</h4>
+
+<h3>Locations {{count}}</h3>
+<div class="ui search">
+  <div class="ui icon input">
+    <i class="search icon"></i>
+    <input class="prompt" type="text" placeholder="Search" ng-model="searchText">
+  </div>
+</div>
+<table class="ui very basic celled striped table">
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Location</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="location in Locations | filter:searchText | limitTo:displayLimit">
+      <td>{{location.id}}</td>
+      <td>
+        <div class="ui fluid input">
+          <input type="edit" id="name" ng-model="location.name" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'name', location, '{{location}}')" />
+        </div>
+      </td>
+      <td>
+        <div class="ui fluid input">
+          <input type="edit" id="location" ng-model="location.location" ng-model-options="{updateOn: 'default blur', debounce: { 'default': 1000000, 'blur': 0 } }" ng-change="done('Location', 'location', location, '{{location}}')" />
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="ui primary button" ng-click="prev('Location')" ng-disabled="totalDisplayed === 0">Previous</button>
+<button class="ui primary button" ng-click="next('Location')">Next</button>
+
+<h3>Channels</h3>
+
+<table class="ui very basic celled striped table">
+  <thead>
+    <th>ID</th>
+    <th>Name</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="channel in Channels">
+      <td>{{channel.id}}</td>
+      <td>
+        <div class="ui fluid input">
+          <input type="edit" ng-model="channel.name" placeholder="{{channel.name}}" ng-blur="done('Channel', 'name', channel, '{{channel}}')" />
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="ui primary button" ng-click="prev('Channel')" ng-disabled="totalDisplayed === 0">Previous</button>
+<button class="ui primary button" ng-click="next('Channel')">Next</button>
+
